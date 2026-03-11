@@ -57,7 +57,7 @@ const appReducer = (state: AppState, action: Action): AppState => {
       const { specificDriverId, scheduledTime, moveToEnd, pickupDate, ...ridePayload } = action.payload;
       const newRideId = new Date().toISOString();
       
-      let updatedDrivers = state.drivers;
+      let updatedDrivers = [...state.drivers];
       const driverToOffer = specificDriverId
         ? state.drivers.find(d => d.id === specificDriverId)
         : state.drivers.filter(d => d.isAvailable).sort((a,b) => a.position - b.position)[0];
@@ -131,6 +131,26 @@ const appReducer = (state: AppState, action: Action): AppState => {
     case 'CANCEL_RIDE': {
       const { rideId } = action.payload;
       return { ...state, rides: state.rides.filter(ride => ride.id !== rideId) };
+    }
+
+    case 'DISPATCH_SCHEDULED_RIDE': {
+      const { rideId } = action.payload;
+      const ride = state.rides.find(r => r.id === rideId);
+      if (!ride || ride.status !== RideStatus.SCHEDULED) return state;
+
+      const nextAvailableDriver = state.drivers
+        .filter(d => d.isAvailable)
+        .sort((a, b) => a.position - b.position)[0];
+
+      return {
+        ...state,
+        rides: state.rides.map(r => 
+          r.id === rideId 
+            ? { ...r, status: RideStatus.WAITING, offeredToDriverId: nextAvailableDriver?.id } 
+            : r
+        ),
+        alertTimestamp: Date.now()
+      };
     }
 
     case 'ADD_DRIVER': {

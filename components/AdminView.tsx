@@ -329,7 +329,7 @@ const AdminView: React.FC<AdminViewProps> = ({ accessLevel }) => {
 
               <h3 className="text-[10px] font-bold mb-3 text-slate-500 uppercase tracking-widest border-b border-slate-700 pb-1">Lista Geral de Unidades</h3>
               <div className="space-y-2 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
-                  {state.drivers.sort((a,b) => a.position - b.position).map(driver => (
+                  {[...state.drivers].sort((a,b) => a.position - b.position).map(driver => (
                       <div key={driver.id} className="flex items-center justify-between bg-slate-700/40 p-3 rounded-md border border-slate-600/50 hover:bg-slate-700/60 transition-colors">
                           <div className="flex items-center gap-3">
                               <div className={`w-2 h-2 rounded-full ${driver.isAvailable ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-slate-600'}`} />
