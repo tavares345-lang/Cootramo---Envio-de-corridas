@@ -1,0 +1,31 @@
+
+export enum RideStatus {
+  SCHEDULED = 'Agendada',
+  WAITING = 'Aguardando',
+  IN_PROGRESS = 'Em Atendimento',
+  COMPLETED = 'Finalizada',
+}
+
+export interface Driver {
+  id: number;
+  name: string;
+  unitNumber: string;
+  vehicleModel: string;
+  position: number;
+  previousPosition?: number;
+  isAvailable: boolean;
+  password?: string;
+}
+
+export interface Ride {
+  id: string;
+  pickup: string;
+  destination: string;
+  pickupDate: string;
+  time: string;
+  fare: number;
+  status: RideStatus;
+  assignedDriverId?: number;
+  offeredToDriverId?: number;
+  scheduledTime?: string;
+}

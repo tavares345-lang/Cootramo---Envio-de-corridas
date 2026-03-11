@@ -1,0 +1,5 @@
+{
+  "name": "Cootramo - Envio de corridas",
+  "description": "Um aplicativo para cooperativas de táxi gerenciarem e distribuírem corridas para motoristas com base em um sistema de filas. Os administradores podem publicar as corridas, e os motoristas as recebem em seus dispositivos de acordo com sua posição na fila.",
+  "requestFramePermissions": []
+}
